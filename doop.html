@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Showcase</title>
+  <style>
+   body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+}
+
+.curved-navbar {
+    position: relative;
+    background: linear-gradient(90deg, #4CAF50, #2A9D8F);
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+  }
+
+  /* Wave-shaped curve */
+  .curved-navbar::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to bottom, #4CAF50, #ffffff);
+    border-radius: 0 0 50% 50%;
+    z-index: -1;
+  }
+
+  /* Brand section */
+  .brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .brand-logo {
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+  }
+
+  /* Navigation links */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-links li {
+    position: relative;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: white; /* Default color for desktop */
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #FFD700;
+  }
+
+  /* Hamburger menu */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: auto;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hamburger span {
+    background: white;
+    height: 3px;
+    width: 25px;
+    margin: 4px;
+    transition: all 0.3s ease;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      width: 200px;
+      padding: 20px;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links.active {
+      display: flex;
+      animation: slideDown 0.5s ease forwards;
+    }
+
+    .nav-links a {
+      color: black; /* Change to black text on mobile */
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+  }
+
+  /* Animation for slide down */
+  @keyframes slideDown {
+    from {
+      transform: translateY(-50%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .brand-logo {
+mix-blend-mode: multiply; /* Blend the white background with the parent */
+display: block;
+width: 100%; /* Adjust as needed */
+max-width: 100px; /* Adjust as needed */
+}
+
+.product-showcase {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: -10px;
+  
+}
+
+.curved-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  z-index: -1;
+}
+.showcase-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 24px;
+    padding: 2rem;
+    margin-top: 8rem;
+    width: 80%;
+    max-width: 1200px;
+    animation: slideIn 1s ease-out;
+    overflow: hidden; /* Ensure the pseudo-element doesn’t leak outside */
+}
+
+.showcase-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('cropsy nutrients_preview_rev_1.png');
+    background-repeat: no-repeat;
+    background-size: 400px;
+    background-position: center;
+    opacity: 0.2; /* Decrease opacity */
+    pointer-events: none; /* Ignore clicks */
+    z-index: 0; /* Place behind the content */
+}
+
+.showcase-container > * {
+    position: relative; /* Ensure the child elements are above the pseudo-element */
+    z-index: 1;
+}
+<style>
+  /* Main Styles */
+  .showcase-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensures content is horizontally centered */
+    text-align: center; /* Ensures text alignment */
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 24px;
+    padding: 2rem;
+    margin: 2rem auto;
+    width: 90%; /* Default width for responsiveness */
+    max-width: 600px; /* Ensures a manageable size for larger screens */
+    animation: slideIn 1s ease-out;
+    overflow: hidden;
+  }
+
+  .image-section {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .product-image {
+    width: 100%;
+    max-width: 300px; /* Control the image size */
+    height: auto;
+    border-radius: 12px;
+    transform: translateZ(0);
+    transition: transform 0.5s;
+  }
+
+  .product-image:hover {
+    transform: scale(1.05) rotate(-3deg);
+    cursor: pointer;
+  }
+
+  .details-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+    gap: 1rem;
+  }
+
+  .product-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #db1e1e;
+    text-transform: capitalize;
+  }
+
+  .company-name,
+  .product-config,
+  .product-uses {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .showcase-container {
+      padding: 1.5rem;
+      width: 95%; /* Adjusts width for smaller screens */
+    }
+
+    .product-title {
+      font-size: 1.8rem; /* Adjust font size for better readability */
+    }
+
+    .details-section p, 
+    .details-section h3 {
+      font-size: 1rem; /* Adjusts text size */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-title {
+      font-size: 1.6rem; /* Slightly smaller font size for mobile screens */
+    }
+
+    .product-image {
+      max-width: 250px; /* Adjusts the image size for extra small screens */
+    }
+
+    .details-section p, 
+    .details-section h3 {
+      font-size: 0.9rem; /* Reduces text size for very small screens */
+    }
+  }
+
+
+.benefits-list {
+  list-style: disc;
+  margin-left: 1.5rem;
+  color: #333;
+}
+
+.benefits-list li {
+  margin-bottom: 0.5rem;
+}
+
+.buy-now-btn {
+  background: #28a745;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.buy-now-btn:hover {
+  background: #1e7e34;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .details-section {
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .buy-now-btn {
+    margin: 0 auto;
+  }
+}
+.watermark{
+  
+  background-size: contain;
+  opacity: 0.1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 500px;
+  
+}
+  </style>
+</head>
+<body>
+  <header class="curved-navbar">
+    <div class="brand">
+      <img src="cropsy nutrients logo.jpeg" alt="Brand Logo" class="brand-logo">
+      <span class="brand-name"></span>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+  <div class="product-showcase">
+    
+    <div class="showcase-container">
+      <div class="image-section">
+        <img src="C:\Users\suvar\Downloads\Agrostar_preview_rev_1.png" alt="Product Image" class="product-image">
+      </div>
+      <div class="details-section">
+        <h2 class="product-title">AGROSTAR</h2>
+        <h3> AGROSTAR  is Rich Organic Fertilizer prepared by 
+          Anaerobic and Aerobic Decomposition of agriculture 
+          residues in plant. Each 100grm of Agrostar Contains 
+          3crore helpful Micro organisms that helps in absorption of 
+          nutrients from the soil.
+          </h3>
+        <h3>Dosage:</h3>
+        Dosage : 1-2 grm per liter of water
+      </div>
+      
+    </div>
+    
+  </div>
+  <div class="bottom">
+    <div class="bottom-curve">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#4CAF50" fill-opacity="1" d="M0,64L80,80C160,96,320,128,480,138.7C640,149,800,139,960,149.3C1120,160,1280,192,1360,208L1440,224V320H0Z"></path>
+      </svg>
+    </div>
+  </div>
+  
+
+<script>
+  function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    const hamburger = document.querySelector('.hamburger');
+
+    // Toggle the nav menu visibility
+    navLinks.classList.toggle('active');
+
+    // Add or remove the "open" class for animation
+    hamburger.classList.toggle('open');
+  }
+</script>  
+</body>
+</html>
