@@ -1,417 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Showcase</title>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Showcase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
 
-      body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      box-sizing: border-box;
-    }
+        .curved-navbar {
+            position: relative;
+            background: linear-gradient(90deg, #4CAF50, #2A9D8F);
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+        }
 
-  .curved-navbar {
-      position: relative;
-      background: linear-gradient(90deg, #4CAF50, #2A9D8F);
-      padding: 10px 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      z-index: 1000;
-  }
+        /* Wave-shaped curve */
+        .curved-navbar::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to bottom, #4CAF50, #ffffff);
+            border-radius: 0 0 50% 50%;
+            z-index: -1;
+        }
 
-  .curved-navbar::after {
-      content: '';
-      position: absolute;
-      bottom: -30px;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      background: linear-gradient(to bottom, #4CAF50, #ffffff);
-      border-radius: 0 0 50% 50%;
-      z-index: -1;
-  }
+        /* Brand section */
+        .brand {
+            display: flex;
+            align-items: center;
+        }
 
- 
-  /* Brand section */
-  .brand {
-    display: flex;
-    align-items: center;
-  }
+        .brand-logo {
+            height: 40px;
+            margin-right: 10px;
+        }
 
-  .brand-logo {
-    height: 40px;
-    margin-right: 10px;
-  }
-  .brand-logo {
-mix-blend-mode: multiply; /* Blend the white background with the parent */
-display: block;
-width: 100%; /* Adjust as needed */
-max-width: 100px; /* Adjust as needed */
-}
+        .brand-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
 
-  .brand-name {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-  }
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
 
-  /* Navigation links */
-  .nav-links {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 20px;
-    transition: all 0.3s ease;
-  }
+        .nav-links li {
+            position: relative;
+        }
 
-  .nav-links li {
-    position: relative;
-  }
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
 
-  .nav-links a {
-    text-decoration: none;
-    color: white; /* Default color for desktop */
-    font-weight: bold;
-    font-size: 16px;
-    padding: 5px 0;
-    transition: color 0.3s ease;
-  }
+        .nav-links a:hover {
+            color: #FFD700;
+        }
 
-  .nav-links a:hover {
-    color: #FFD700;
-  }
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-left: auto;
+            transition: all 0.3s ease-in-out;
+        }
 
-  /* Hamburger menu */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    margin-left: auto;
-    transition: all 0.3s ease-in-out;
-  }
+        .hamburger span {
+            background: white;
+            height: 3px;
+            width: 25px;
+            margin: 4px;
+            transition: all 0.3s ease;
+        }
 
-  .hamburger span {
-    background: white;
-    height: 3px;
-    width: 25px;
-    margin: 4px;
-    transition: all 0.3s ease;
-  }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                width: 200px;
+                padding: 20px;
+                border-radius: 0 0 10px 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
 
+            .nav-links.active {
+                display: flex;
+                animation: slideDown 0.5s ease forwards;
+            }
 
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 70px;
-      right: 0;
-      background: rgba(255, 255, 255, 0.95);
-      width: 200px;
-      padding: 20px;
-      border-radius: 0 0 10px 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+            .nav-links a {
+                color: black; /* Change to black text on mobile */
+            }
 
-    .nav-links.active {
-      display: flex;
-      animation: slideDown 0.5s ease forwards;
-    }
+            .hamburger {
+                display: flex;
+            }
 
-    .nav-links a {
-      color: black; /* Change to black text on mobile */
-    }
+            .hamburger.open span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
 
-      .hamburger {
-          display: flex;
-      }
+            .hamburger.open span:nth-child(2) {
+                opacity: 0;
+            }
 
-      .hamburger.open span:nth-child(1) {
-          transform: rotate(45deg) translate(5px, 5px);
-      }
+            .hamburger.open span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+        }
 
-      .hamburger.open span:nth-child(2) {
-          opacity: 0;
-      }
+        /* Animation for slide down */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50%);
+                opacity: 0;
+            }
 
-      .hamburger.open span:nth-child(3) {
-          transform: rotate(-45deg) translate(5px, -5px);
-      }
-  }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-  @keyframes slideDown {
-      from {
-          transform: translateY(-50%);
-          opacity: 0;
-      }
-      to {
-          transform: translateY(0);
-          opacity: 1;
-      }
-  }
+        .brand-logo {
+            mix-blend-mode: multiply;
+            display: block;
+            width: 100%;
+            max-width: 100px;
+        }
 
-  .product-showcase {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  overflow: hidden;
-  margin-bottom: -10px;
-  
-}
+        .product-showcase {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            margin-bottom: -10px;
+        }
 
-.curved-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 30vh;
-  z-index: -1;
-}
-.showcase-container {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1.5rem;
-    background: #ffffff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 24px;
-    padding: 2rem;
-    margin-top: 8rem;
-    width: 80%;
-    max-width: 1200px;
-    animation: slideIn 1s ease-out;
-    overflow: hidden; /* Ensure the pseudo-element doesn’t leak outside */
-}
- 
-.showcase-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: 400px;
-    background-position: center;
-    opacity: 0.2; /* Decrease opacity */
-    pointer-events: none; /* Ignore clicks */
-    z-index: 0; /* Place behind the content */
-}
+        .curved-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30vh;
+            z-index: -1;
+        }
 
-.showcase-container > * {
-    position: relative; /* Ensure the child elements are above the pseudo-element */
-    z-index: 1;
-}
+        .showcase-container {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-top: 8rem;
+            width: 80%;
+            max-width: 1200px;
+            animation: slideIn 1s ease-out;
+            overflow: hidden;
+        }
 
+        .showcase-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(' ');
+            background-repeat: no-repeat;
+            background-size: 400px;
+            background-position: center;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-.image-section {
-  text-align: center;
-  position: relative;
-}
+        .showcase-container > * {
+            position: relative;
+            z-index: 1;
+        }
 
-.product-image {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  border-radius: 12px;
-  transform: translateZ(0);
-  transition: transform 0.5s;
-}
+        .image-section {
+            text-align: center;
+            position: relative;
+        }
 
-.product-image:hover {
-  transform: scale(1.05) rotate(-3deg);
-  cursor: pointer;
-}
+        .product-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 12px;
+            transform: translateZ(0);
+            transition: transform 0.5s;
+        }
 
-    .details-section h3 {
-      margin: 10px 0;
-      font-size: 1.2rem;
-    }
+        .product-image:hover {
+            transform: scale(1.05) rotate(-3deg);
+            cursor: pointer;
+        }
 
-    .showcase-container::before {
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background-image: url(" "); /* Correct image path */
-   background-repeat: no-repeat;
-   background-position: center;
-   background-size: cover; /* Or adjust to 100% */
-   color: rgba(200, 200, 200, 0.2);
-   font-size: 3rem;
-   font-weight: bold;
-   text-align: center;
-   z-index: 1; /* Adjust z-index */
-   transform: rotate(-30deg);
-   pointer-events: none;
-}
+        .details-section h3 {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
 
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
 
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
- /* Responsive styles */
- @media (max-width: 600px) {
-      .product-title {
-        font-size: 1.5rem;
-      }
+        .details-section {
+            position: relative;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 50px;
+            margin: 80px auto;
+            border-radius: 8px;
+            max-width: 1500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            padding-left: 30px;
+            padding-right: 30px;
+            box-sizing: border-box;
+        }
 
-      .details-section h3 {
-        font-size: 1rem;
-      }
+        .details-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('cropsy nutrients_preview_rev_1.png') no-repeat center;
+            background-size: 50%;
+            opacity: 0.4;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-      .showcase-container::before {
-        font-size: 2rem;
-      }
-    }
-   
-    .details-section {
-    position: relative;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 50px; /* Increased padding for more spacing inside the section */
-    margin: 80px auto; /* Adjusted margin for better vertical spacing */
-    border-radius: 8px;
-    max-width: 1500px; /* Increased width for a larger section */
-    overflow: hidden; /* Ensures no overflow outside the container */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
-    z-index: 1;
-}
+        @media (max-width: 768px) {
+            .details-section {
+                padding: 20px;
+                margin: 50px auto;
+            }
 
-.details-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('cropsy nutrients_preview_rev_1.png') no-repeat center;
-    background-size: 50%; /* Adjust the size of the watermark */
-    opacity: 0.4; /* Makes the watermark subtle */
-    z-index: -1; /* Places the watermark behind the content */
-    pointer-events: none; /* Prevents interactions with the watermark */
-}
+            .details-section::before {
+                background-size: contain;
+            }
+        }
 
-
-
-/* Responsive adjustments for smaller devices */
-@media (max-width: 768px) {
-    .details-section {
-        padding: 20px;
-        margin: 50px auto;
-    }
-    
-    .details-section::before {
-        background-size: contain; /* Ensures watermark remains proportionate on smaller devices */
-    }
-}
-
-
-  .details-section::after {
-      content: " ";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      color: rgba(0, 0, 0, 0.1);
-      font-size: 4rem;
-      font-weight: bold;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      pointer-events: none;
-      z-index: -1;
-  }
-
- 
-  @keyframes slideIn {
-      from {
-          opacity: 0;
-          transform: translateY(50px);
-      }
-      to {
-          opacity: 1;
-          transform: translateY(0);
-      }
-  }
-
-  @media screen and (max-width: 768px) {
-      .details-section {
-          text-align: center;
-          gap: 1rem;
-      }
-  }
-  </style>
+        @media screen and (max-width: 768px) {
+            .details-section {
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <header class="curved-navbar">
-    <div class="brand">
-      <img src="cropsy nutrients logo.jpeg" alt="Brand Logo" class="brand-logo">
-      <span class="brand-name"></span>
-    </div>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contact">Contact Us</a></li>
-      </ul>
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </nav>
-  </header>
+    <header class="curved-navbar">
+        <div class="brand">
+            <img src="cropsy nutrients logo.jpeg" alt="Brand Logo" class="brand-logo">
+            <span class="brand-name"></span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
 
-  <div class="product-showcase">
-    
-    <div class="showcase-container">
-      <div class="image-section">
-        <img src="Agrostar_preview_rev_1.png" alt="Product Image" class="product-image">
-      </div>
-
-      <div class="details-section">
-        <h2 class="product-title">                              </h2><br>
-        <br>
-        <h3>AGROSTAR is Rich Organic Fertilizer prepared by Anaerobic and Aerobic Decomposition of agriculture residues in plant. Each 100grm of Agrostar Contains 3crore helpful Micro organisms that helps in absorption of nutrients from the soil.</h3>
-        <h3>Dosage:</h3>
-        Dosage : 1-2 grm per liter of water
-      </div>
+    <div class="product-showcase">
+        <div class="showcase-container">
+            <div class="image-section">
+                <img src="Agrostar_preview_rev_1.png" alt="Product Image" class="product-image">
+            </div>
+            <div class="details-section">
+                <h2 class="product-title"></h2><br><br>
+                <h3>AGROSTAR is Rich Organic Fertilizer prepared by Anaerobic and Aerobic Decomposition of agricultural residues in plant. Each 100grm of Agrostar Contains 3crore helpful Micro organisms that help in absorption of nutrients from the soil.</h3>
+                <h3>Dosage:</h3>
+                <p>Dosage: 1-2 grm per liter of water</p>
+            </div>
+        </div>
     </div>
-  </div>
- 
-  <div class="bottom">
-    <div class="bottom-curve">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#4CAF50" fill-opacity="1" d="M0,64L80,80C160,96,320,128,480,138.7C640,149,800,139,960,149.3C1120,160,1280,192,1360,208L1440,224V320H0Z"></path>
-      </svg>
-    </div>
-  </div>
-  
 
-  <script>
-    function toggleMenu() {
-      const navLinks = document.querySelector('.nav-links');
-      const hamburger = document.querySelector('.hamburger');
-  
-      // Toggle the nav menu visibility
-      navLinks.classList.toggle('active');
-  
-      // Add or remove the "open" class for animation
-      hamburger.classList.toggle('open');
-    }
-  </script>  
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('open');
+        }
+    </script>
 </body>
+
 </html>
