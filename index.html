@@ -5,37 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Showcase</title>
   <style>
-   body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f7f7f7;
-}
 
-.curved-navbar {
-    position: relative;
-    background: linear-gradient(90deg, #4CAF50, #2A9D8F);
-    padding: 10px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
+      body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+  .curved-navbar {
+      position: relative;
+      background: linear-gradient(90deg, #4CAF50, #2A9D8F);
+      padding: 10px 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
   }
 
-  /* Wave-shaped curve */
   .curved-navbar::after {
-    content: '';
-    position: absolute;
-    bottom: -30px;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: linear-gradient(to bottom, #4CAF50, #ffffff);
-    border-radius: 0 0 50% 50%;
-    z-index: -1;
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(to bottom, #4CAF50, #ffffff);
+      border-radius: 0 0 50% 50%;
+      z-index: -1;
   }
 
+ 
   /* Brand section */
   .brand {
     display: flex;
@@ -46,6 +47,12 @@
     height: 40px;
     margin-right: 10px;
   }
+  .brand-logo {
+mix-blend-mode: multiply; /* Blend the white background with the parent */
+display: block;
+width: 100%; /* Adjust as needed */
+max-width: 100px; /* Adjust as needed */
+}
 
   .brand-name {
     font-size: 20px;
@@ -97,6 +104,7 @@
     transition: all 0.3s ease;
   }
 
+
   /* Responsive design */
   @media (max-width: 768px) {
     .nav-links {
@@ -121,42 +129,35 @@
       color: black; /* Change to black text on mobile */
     }
 
-    .hamburger {
-      display: flex;
-    }
+      .hamburger {
+          display: flex;
+      }
 
-    .hamburger.open span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
+      .hamburger.open span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+      }
 
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-    }
+      .hamburger.open span:nth-child(2) {
+          opacity: 0;
+      }
 
-    .hamburger.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
+      .hamburger.open span:nth-child(3) {
+          transform: rotate(-45deg) translate(5px, -5px);
+      }
   }
 
-  /* Animation for slide down */
   @keyframes slideDown {
-    from {
-      transform: translateY(-50%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+      from {
+          transform: translateY(-50%);
+          opacity: 0;
+      }
+      to {
+          transform: translateY(0);
+          opacity: 1;
+      }
   }
-  .brand-logo {
-mix-blend-mode: multiply; /* Blend the white background with the parent */
-display: block;
-width: 100%; /* Adjust as needed */
-max-width: 100px; /* Adjust as needed */
-}
 
-.product-showcase {
+  .product-showcase {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -190,7 +191,7 @@ max-width: 100px; /* Adjust as needed */
     animation: slideIn 1s ease-out;
     overflow: hidden; /* Ensure the pseudo-element doesn’t leak outside */
 }
-
+ 
 .showcase-container::before {
     content: "";
     position: absolute;
@@ -198,7 +199,6 @@ max-width: 100px; /* Adjust as needed */
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('cropsy nutrients_preview_rev_1.png');
     background-repeat: no-repeat;
     background-size: 400px;
     background-position: center;
@@ -212,154 +212,144 @@ max-width: 100px; /* Adjust as needed */
     z-index: 1;
 }
 
-  .showcase-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Ensures content is horizontally centered */
-    text-align: center; /* Ensures text alignment */
-    background: #ffffff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 24px;
-    padding: 2rem;
-    margin: 2rem auto;
-    width: 90%; /* Default width for responsiveness */
-    max-width: 600px; /* Ensures a manageable size for larger screens */
-    animation: slideIn 1s ease-out;
-    overflow: hidden;
-  }
 
-  .image-section {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .product-image {
-    width: 100%;
-    max-width: 500px; /* Control the image size */
-    height: auto;
-    border-radius: 12px;
-    transform: translateZ(0);
-    transition: transform 0.5s;
-  }
-
-  .product-image:hover {
-    transform: scale(1.05) rotate(-3deg);
-    cursor: pointer;
-  }
-
-  .details-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #333;
-    gap: 1rem;
-  }
-
-  .product-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #db1e1e;
-    text-transform: capitalize;
-  }
-
-  .company-name,
-  .product-config,
-  .product-uses {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .showcase-container {
-      padding: 1.5rem;
-      width: 95%; /* Adjusts width for smaller screens */
-    }
-
-    .product-title {
-      font-size: 1.8rem; /* Adjust font size for better readability */
-    }
-
-    .details-section p, 
-    .details-section h3 {
-      font-size: 1rem; /* Adjusts text size */
-    }
-  }
-
-  @media (max-width: 480px) {
-    .product-title {
-      font-size: 1.6rem; /* Slightly smaller font size for mobile screens */
-    }
-
-    .product-image {
-      max-width: 250px; /* Adjusts the image size for extra small screens */
-    }
-
-    .details-section p, 
-    .details-section h3 {
-      font-size: 0.9rem; /* Reduces text size for very small screens */
-    }
-  }
-
-
-.benefits-list {
-  list-style: disc;
-  margin-left: 1.5rem;
-  color: #333;
+.image-section {
+  text-align: center;
+  position: relative;
 }
 
-.benefits-list li {
-  margin-bottom: 0.5rem;
+.product-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 12px;
+  transform: translateZ(0);
+  transition: transform 0.5s;
 }
 
-.buy-now-btn {
-  background: #28a745;
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  text-transform: uppercase;
+.product-image:hover {
+  transform: scale(1.05) rotate(-3deg);
   cursor: pointer;
-  transition: background 0.3s;
 }
 
-.buy-now-btn:hover {
-  background: #1e7e34;
+    .details-section h3 {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .showcase-container::before {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-image: url(" "); /* Correct image path */
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: cover; /* Or adjust to 100% */
+   color: rgba(200, 200, 200, 0.2);
+   font-size: 3rem;
+   font-weight: bold;
+   text-align: center;
+   z-index: 1; /* Adjust z-index */
+   transform: rotate(-30deg);
+   pointer-events: none;
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+
+ /* Responsive styles */
+ @media (max-width: 600px) {
+      .product-title {
+        font-size: 1.5rem;
+      }
+
+      .details-section h3 {
+        font-size: 1rem;
+      }
+
+      .showcase-container::before {
+        font-size: 2rem;
+      }
+    }
+   
+    .details-section {
+    position: relative;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 50px; /* Increased padding for more spacing inside the section */
+    margin: 80px auto; /* Adjusted margin for better vertical spacing */
+    border-radius: 8px;
+    max-width: 1500px; /* Increased width for a larger section */
+    overflow: hidden; /* Ensures no overflow outside the container */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+    z-index: 1;
 }
 
-@media screen and (max-width: 768px) {
-  .details-section {
-    text-align: center;
-    gap: 1rem;
+.details-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('cropsy nutrients_preview_rev_1.png') no-repeat center;
+    background-size: 50%; /* Adjust the size of the watermark */
+    opacity: 0.4; /* Makes the watermark subtle */
+    z-index: -1; /* Places the watermark behind the content */
+    pointer-events: none; /* Prevents interactions with the watermark */
+}
+
+
+
+/* Responsive adjustments for smaller devices */
+@media (max-width: 768px) {
+    .details-section {
+        padding: 20px;
+        margin: 50px auto;
+    }
+    
+    .details-section::before {
+        background-size: contain; /* Ensures watermark remains proportionate on smaller devices */
+    }
+}
+
+
+  .details-section::after {
+      content: " ";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: rgba(0, 0, 0, 0.1);
+      font-size: 4rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+      z-index: -1;
   }
 
-  .buy-now-btn {
-    margin: 0 auto;
+ 
+  @keyframes slideIn {
+      from {
+          opacity: 0;
+          transform: translateY(50px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
   }
-}
-.watermark{
-  
-  background-size: contain;
-  opacity: 0.1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  right: 500px;
-  
-}
+
+  @media screen and (max-width: 768px) {
+      .details-section {
+          text-align: center;
+          gap: 1rem;
+      }
+  }
   </style>
 </head>
 <body>
@@ -384,27 +374,24 @@ max-width: 100px; /* Adjust as needed */
       </div>
     </nav>
   </header>
+
   <div class="product-showcase">
     
     <div class="showcase-container">
       <div class="image-section">
-        <img src="Agrostar_preview_rev_1.png" alt="Product Image" class="product-image">
+        <img src="C:\Users\suvar\Downloads\Agrostar_preview_rev_1.png" alt="Product Image" class="product-image">
       </div>
+
       <div class="details-section">
-        <h2 class="product-title">AGROSTAR</h2>
-        <p> AGROSTAR  is Rich Organic Fertilizer prepared by 
-          Anaerobic and Aerobic Decomposition of agriculture 
-          residues in plant. Each 100grm of Agrostar Contains 
-          3crore helpful Micro organisms that helps in absorption of 
-          nutrients from the soil.
-          </h3>
+        <h2 class="product-title">                              </h2><br>
+        <br>
+        <h3>AGROSTAR is Rich Organic Fertilizer prepared by Anaerobic and Aerobic Decomposition of agriculture residues in plant. Each 100grm of Agrostar Contains 3crore helpful Micro organisms that helps in absorption of nutrients from the soil.</h3>
         <h3>Dosage:</h3>
         Dosage : 1-2 grm per liter of water
       </div>
-      
     </div>
-    
   </div>
+ 
   <div class="bottom">
     <div class="bottom-curve">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -414,17 +401,17 @@ max-width: 100px; /* Adjust as needed */
   </div>
   
 
-<script>
-  function toggleMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    const hamburger = document.querySelector('.hamburger');
-
-    // Toggle the nav menu visibility
-    navLinks.classList.toggle('active');
-
-    // Add or remove the "open" class for animation
-    hamburger.classList.toggle('open');
-  }
-</script>  
+  <script>
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      const hamburger = document.querySelector('.hamburger');
+  
+      // Toggle the nav menu visibility
+      navLinks.classList.toggle('active');
+  
+      // Add or remove the "open" class for animation
+      hamburger.classList.toggle('open');
+    }
+  </script>  
 </body>
 </html>
