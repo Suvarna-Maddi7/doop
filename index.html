@@ -279,24 +279,30 @@
             z-index: -1;
             pointer-events: none;
         }
-                  @media (max-width: 768px) {
-            .details-section {
-                padding: 20px;
-                margin: 50px auto;
-                text-align: center;
-            }
+/* Single media query for mobile screens */
+@media (max-width: 768px) {
+    .details-section {
+        padding: 20px;
+        margin: 0 auto;  /* Center the entire section */
+        text-align: center;  /* Center text content */
+        display: flex;  /* Flexbox layout */
+        flex-direction: column;  /* Stack elements vertically */
+        justify-content: center; /* Align children to the center horizontally */
+        align-items: center;  /* Align items in the center (horizontal axis) */
+    }
 
-            .details-section::before {
-                background-size: contain;
-            }
-        }
+    /* Remove unwanted styles for better layout */
+    .details-section::before {
+        background-size: contain;
+    }
 
-        @media screen and (max-width: 768px) {
-            .details-section {
-                text-align: center;
-                gap: 1rem;
-            }
-        }
+    /* Additional image styling, if needed */
+    .details-section img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 1rem; /* space between the image and details */
+    }
+}
     </style>
 </head>
 
