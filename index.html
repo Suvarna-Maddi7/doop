@@ -1,362 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Showcase</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
-
-        .curved-navbar {
-            position: relative;
-            background: linear-gradient(90deg, #4CAF50, #2A9D8F);
-            padding: 10px 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 1000;
-        }
-
-        /* Wave-shaped curve */
-        .curved-navbar::after {
-            content: '';
-            position: absolute;
-            bottom: -30px;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background: linear-gradient(to bottom, #4CAF50, #ffffff);
-            border-radius: 0 0 50% 50%;
-            z-index: -1;
-        }
-
-        /* Brand section */
-        .brand {
-            display: flex;
-            align-items: center;
-        }
-
-        .brand-logo {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .brand-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-        }
-
-        /* Navigation links */
-        .nav-links {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links li {
-            position: relative;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 5px 0;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #FFD700;
-        }
-
-        /* Hamburger menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            margin-left: auto;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .hamburger span {
-            background: white;
-            height: 3px;
-            width: 25px;
-            margin: 4px;
-            transition: all 0.3s ease;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                right: 0;
-                background: rgba(255, 255, 255, 0.95);
-                width: 200px;
-                padding: 20px;
-                border-radius: 0 0 10px 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-
-            .nav-links.active {
-                display: flex;
-                animation: slideDown 0.5s ease forwards;
-            }
-
-            .nav-links a {
-                color: black; /* Change to black text on mobile */
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hamburger.open span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .hamburger.open span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.open span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-
-            .curved-navbar {
-                padding: 10px;
-            }
-        }
-
-        /* Animation for slide down */
-        @keyframes slideDown {
-            from {
-                transform: translateY(-50%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .brand-logo {
-            mix-blend-mode: multiply;
-            display: block;
-            width: 100%;
-            max-width: 100px;
-        }
-
-        .product-showcase {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            margin-bottom: -10px;
-        }
-
-        .curved-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 30vh;
-            z-index: -1;
-        }
-
-        .showcase-container {
-            position: relative;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-            background: #ffffff;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border-radius: 24px;
-            padding: 2rem;
-            margin-top: 8rem;
-            width: 80%;
-            max-width: 1200px;
-            animation: slideIn 1s ease-out;
-            overflow: hidden;
-        }
-
-        .showcase-container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url(' ');
-            background-repeat: no-repeat;
-            background-size: 400px;
-            background-position: center;
-            opacity: 0.2;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .showcase-container > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .image-section {
-            text-align: center;
-            position: relative;
-        }
-
-        .product-image {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 12px;
-            transform: translateZ(0);
-            transition: transform 0.5s;
-        }
-
-        .product-image:hover {
-            transform: scale(1.05) rotate(-3deg);
-            cursor: pointer;
-        }
-
-        .details-section h3 {
-            margin: 10px 0;
-            font-size: 1.2rem;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .details-section {
-            position: relative;
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 50px;
-            margin: 80px auto;
-            border-radius: 8px;
-            max-width: 1500px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1;
-            padding-left: 30px;
-            padding-right: 30px;
-            box-sizing: border-box;
-        }
-
-        .details-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('cropsy nutrients_preview_rev_1.png') no-repeat center;
-            background-size: 50%;
-            opacity: 0.4;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Mobile adjustments */
-        @media (max-width: 768px) {
-            .details-section {
-                padding: 20px;
-                margin: 0 auto;  /* Center the entire section */
-                text-align: center;  /* Center text content */
-                display: flex;  /* Flexbox layout */
-                flex-direction: column;  /* Stack elements vertically */
-                justify-content: center; /* Align children to the center horizontally */
-                align-items: center;  /* Align items in the center (horizontal axis) */
-            }
-
-            /* Remove unwanted styles for better layout */
-            .details-section::before {
-                background-size: contain;
-            }
-
-            /* Additional image styling */
-            .details-section img {
-                max-width: 100%;
-                height: auto;
-                margin-bottom: 1rem; /* space between the image and details */
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+<style>
+  /*
+-------------- Basic Reset Css ----------
+ */
+* {
+  margin: 0px auto;
+  padding: 0px;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
 
+}
+
+/* -------- ----------- */
+.cont_principal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fbfaf6+9,d4cebf+74,d4cebf+74,d4cebf+100 */
+background: rgb(251,250,246); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(251,250,246,1) 9%, rgba(212,206,191,1) 74%, rgba(212,206,191,1) 74%, rgba(212,206,191,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(251,250,246,1) 9%,rgba(212,206,191,1) 74%,rgba(212,206,191,1) 74%,rgba(212,206,191,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(251,250,246,1) 9%,rgba(212,206,191,1) 74%,rgba(212,206,191,1) 74%,rgba(212,206,191,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ 
+}
+
+
+.cont_central {  
+position: absolute;
+  width: 100%;
+  top: 50%;
+  margin-top: -200px;
+}
+
+.cont_modal {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s; 
+transition-delay: 0.7s;
+-webkit-transition-delay: 0.7s;
+-o-transition-delay: 0.7s;
+transition-delay: 0.7s;
+}
+
+.cont_photo {
+  position: relative;
+  width: 300px;
+  height: 440px;
+  overflow: hidden;
+  background-color: #eee;
+  border-radius:5px;
+top: -20px;
+float: left;
+z-index: 2;
+-webkit-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+transition: all 0.5s; 
+box-shadow: 1px 1px 20px -5px rgba(0,0,0,0.5);  
+}
+
+.cont_img_back {
+  position: absolute;
+width: 100%;
+height: 100%;
+overflow: hidden;
+border-radius:5px ;
+}
+.cont_img_back > img {
+  width: 100%;
+opacity: 0.7;
+-webkit-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+transition: all 1s;
+}
+
+.cont_img_back:hover > img {
+  transform: scale(1.5);
+}
+
+.cont_text_ingredients {
+position: absolute;
+  width: 0px;
+top: 0px;
+left: 290px;
+  margin-left: 10px;
+  height: 400px;
+  float: left; 
+  border-radius:5px ;
+z-index: 3;
+box-shadow: 1px 1px  20px  -5px  rgba(0,0,0,0.2);
+
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fbf9f9+28,e8eaed+100 */
+background: rgb(251,249,249); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(251,249,249,1) 28%, rgba(232,234,237,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(251,249,249,1) 28%,rgba(232,234,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(251,249,249,1) 28%,rgba(232,234,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ 
+-webkit-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s; 
+transition-delay: 0.7s;
+-webkit-transition-delay: 0.7s;
+-o-transition-delay: 0.7s;
+transition-delay: 0.7s;
+}
+
+
+
+.cont_icon_right {
+  position: relative;
+float: right;
+  margin-top: 16px;
+}
+.cont_icon_right  > a  {
+margin: 16px;
+margin-top: 16px;
+  color: #fff;
+}
+
+.cont_detalles {
+  position: absolute;
+bottom:-185px;
+  height: 200px;
+  border-radius:5px ;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+100,000000+101&0+0,0.65+68 */
+background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 68%, rgba(0,0,0,0.65) 100%, rgba(0,0,0,0.65) 101%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 68%,rgba(0,0,0,0.65) 100%,rgba(0,0,0,0.65) 101%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 68%,rgba(0,0,0,0.65) 100%,rgba(0,0,0,0.65) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ 
+
+width: 100%;
+-webkit-transition: all 0.5s;
+-o-transition: all 0.5s; 
+transition: all 0.5s;
+  transition-delay: 1.2s;
+-webkit-transition-delay: 0.7s;
+-o-transition-delay: 0.7s;
+transition-delay: 0.7s;}
+
+
+.cont_detalles > h3 {
+  margin-top: 50px;
+ color: #fff;
+  font-size: 24px;
+}
+
+.cont_detalles > p {
+  color: #fff;
+width: 80%;
+  text-align:left;
+  font-size: 14px;
+}
+
+/* ---------------- Css Tabs -------- */
+
+.cont_tabs {
+  position: relative;
+  float: left;
+  width: 410px;
+  height: 60px;
+border-bottom: 3px solid #EDEDEC;
+}
+
+.cont_tabs > ul {
+  width: 300px;
+  background-color: #eee;
+}
+
+.cont_tabs > ul > li {
+  position: relative;
+  float: left;
+  width: 50%;
+list-style: none;
+}
+
+.cont_tabs > ul > li > a {
+border-top: 7px solid #ED346C;
+  position: relative;
+  display: block;
+  float: left;
+padding-top: 15px;
+  color: #241C3E;
+  text-decoration: none;
+  margin-left: 15px;
+font-size: 14px;
+}
+
+.cont_tabs > ul > li:first-child > a
+{
+  border-top: 7px solid rgba(237, 52, 108, 0);
+  margin-top: 0px;
+  color: #9A96A4;
+-webkit-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+transition: all 0.2s;
+}
+
+.cont_tabs > ul > li:first-child > a:hover {
+  border-top: 7px solid #ED346C;
+padding-top: 15px;
+  color: #241C3E;
+ margin-top: 0px;
+}
+
+.cont_btn_open_dets {
+  position: absolute;
+  right: -15px;
+  top:50%;
+}
+.cont_btn_open_dets  > a {
+display: block;
+  padding-top: -5px;
+width: 30px;
+  height: 30px;
+  background-color: #ED2460;
+border-radius:50% ;
+color: #fff;
+box-shadow: 0px 0px 20px -2px rgba(237, 36, 96, 1);
+-webkit-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+transition: all 0.5s;
+transform: rotate(180deg);
+
+}
+
+
+.cont_btn_open_dets  > a > i {
+  margin-top: 4px;
+}
+
+.cont_title_preparation {
+   position: relative;
+  float: left;
+margin:10px 0px ;
+width: 410px;
+}
+.cont_title_preparation > p {
+  font-weight: 700;
+font-size: 14px;
+  margin-left: 40px;
+text-align: left;
+color: #36354E;
+}
+
+.cont_info_preparation {
+  position: relative;
+  float: left;
+}
+.cont_info_preparation > p {
+  margin: 5px 0px;
+  margin-left: 50px;
+border-left: 2px solid #E3E3E3; 
+font-size: 12px;
+  padding: 20px 0px;
+padding-left: 20px;
+text-align: left;
+padding-right: 15px;
+color: #565656;
+}
+
+.cont_btn_mas_dets {
+  position: absolute;
+  bottom:0px;
+  left: 50%;
+}
+.cont_btn_mas_dets > a {
+  color: #36354E;
+}
+
+.cont_over_hidden {
+  position: relative;
+  float: left;
+  width: 100%;
+height: 400px;
+  overflow: hidden;
+}
+
+.cont_text_det_preparation {
+  position: relative;
+  width: 410px;
+}
+
+.cont_modal_active > .cont_text_ingredients  > .cont_btn_open_dets > a {
+  transform: rotate(0deg);
+}
+.cont_modal_active > .cont_text_ingredients{
+  width: 410px;
+left: 285px;
+z-index: 1;
+box-shadow: 15px 20px  70px  -5px  rgba(0,0,0,0.2);
+}
+.cont_modal_active {
+width: 700px;  
+}
+
+.cont_modal_active > .cont_photo {
+box-shadow: 25px 10px 70px -5px rgba(0,0,0,0.3);  
+}
+
+.cont_modal_active > .cont_photo > .cont_mins > .sub_mins {
+  opacity: 1;
+}
+
+.cont_modal_active  > .cont_photo > .cont_servings {
+  opacity: 1;
+}
+
+.cont_modal_active > .cont_photo  > .cont_detalles{
+  bottom: 0px;
+}
+
+</style>
 <body>
-    <header class="curved-navbar">
-        <div class="brand">
-            <img src="cropsy nutrients logo.jpeg" alt="Brand Logo" class="brand-logo">
-            <span class="brand-name"></span>
+  <div class="cont_principal">
+    <div class="cont_central">
+      <div class="cont_modal cont_modal_active">
+      <div class="cont_photo">
+    <div class="cont_img_back">
+        <img src="C:\Users\suvar\Downloads\Agrostar_preview_rev_1 (1).png" alt="" />
         </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-            </ul>
-            <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <div class="product-showcase">
-        <div class="showcase-container">
-            <div class="image-section">
-                <img src="Agrostar_preview_rev_1.png" alt="Product Image" class="product-image">
-            </div>
-            <div class="details-section">
-                <h2 class="product-title"></h2><br><br>
-                <h3>AGROSTAR is Rich Organic Fertilizer prepared by Anaerobic and Aerobic Decomposition of agricultural residues in plant. Each 100grm of Agrostar Contains 3crore helpful Micro organisms that help in absorption of nutrients from the soil.</h3>
-                <h3>Dosage:</h3>
-                <p>Dosage: 1-2 grm per liter of water</p>
-            </div>
+   
+        <br>
+    <div class="cont_detalles">
+        <h3>Agro Star</h3><br>
+<p> High Concentrated Micro Nutrients Fertilizers
+  Foliar spray & Drip Applications</p>
+      </div>
         </div>
+    <div class="cont_text_ingredients">
+    <div class="cont_over_hidden">
+     
+      <div class="cont_tabs">
+      <ul>
+        <li><a href="#"><h4>DESCRIPTION</h4></a></li>
+      </ul>  
+      </div>
+       
+      <div class="cont_text_det_preparation">
+      <div class="cont_title_preparation">
+        <p>Product Name</p>
+        </div>
+      <div class="cont_info_preparation">
+        <p>Agro Star</p>
+        </div>  
+      <div class="cont_text_det_preparation">
+    
+      <div class="cont_title_preparation">
+        <p>Product Info</p>
+        </div>
+      <div class="cont_info_preparation">
+<p>AGROSTAR  is Rich Organic Fertilizer prepared by 
+  Anaerobic and Aerobic Decomposition of agriculture 
+  residues in plant. Each 100grm of Agrostar Contains 
+  3crore helpful Micro organisms that helps in absorption of 
+  nutrients from the soil.<br>
+   Dosage : 1-2 grm per liter of water</p>
+      </div> 
+      
+      </div>
+    </div>  
+      <div class="cont_btn_mas_dets">
+      <a href="#"><i class="material-icons">&#xE313;</i></a>
+      </div>
+        
+      </div>
+      <div class="cont_btn_open_dets">
+      <a href="#e" onclick="open_close()"><i class="material-icons">&#xE314;</i></a>
+      </div>
+    
+        </div>
+       </div>
     </div>
-
     <script>
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            const hamburger = document.querySelector('.hamburger');
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('open');
-        }
+      window.onload = function () {
+  document.querySelector('.cont_modal').className = "cont_modal";
+}
+
+let c = 0;
+function open_close() {
+  document.querySelector('.cont_modal').className =
+    c % 2 == 0 ? "cont_modal cont_modal_active" : "cont_modal";
+  c++;
+}
+
     </script>
 </body>
-
 </html>
-
